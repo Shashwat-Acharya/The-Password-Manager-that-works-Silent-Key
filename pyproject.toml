@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "silent key"
+version = "0.1.0"
+description = "This is to manage the dependcy of the Silent Key"
+authors = ["Shashwat Acharya <shashwatacharya1@gmail.com>"]
+license = "AGPL"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+PyQt6 = "^6.7.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
