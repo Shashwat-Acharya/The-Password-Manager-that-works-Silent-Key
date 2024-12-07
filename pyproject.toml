@@ -2,8 +2,8 @@
 name = "silent key"
 version = "0.1.0"
 description = "This is to manage the dependcy of the Silent Key"
-authors = ["Shashwat Acharya <shashwatacharya1@gmail.com>"]
-license = "AGPL"
+authors = ["Shashwat Acharya <shashwatacharya1@gmail.com>","Subham Raul <srmusics16@gmail.com>]
+license = ""
 readme = "README.md"
 package-mode = false
 
