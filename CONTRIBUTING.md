@@ -43,7 +43,8 @@ This project uses several tools and libraries that make development easier and m
 
 ### 4. **MkDocs**  
    - **Purpose**: **MkDocs** is used to create the documentation for this project. It allows us to easily maintain and generate a static site for documentation.
-   - **Why**: It’s simple to set up and use, and allows for clean and easy-to-read documentation.
+   - **Why**: It’s simple to set up and use, and allows for clean and easy-to-read documentation. 
+   - Check out the [MkDocs Documentation](https://www.mkdocs.org/getting-started/) to get started.
 
 ---
 
