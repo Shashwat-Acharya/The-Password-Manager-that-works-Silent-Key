@@ -1,74 +1,91 @@
-import sys
-from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QLineEdit, QWidget, QVBoxLayout, QHBoxLayout
+from PyQt6.QtWidgets import (
+    QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QLineEdit,
+    QTableWidget, QTableWidgetItem, QHeaderView, QListWidget
+)
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QMovie  # Import QMovie for GIF animation
-from PyQt6.QtGui import QIcon
+from PyQt6.QtGui import QFont
 
-class MainWindow(QMainWindow):
+class PasswordManagerApp(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.setWindowTitle("Password Manager")
+        self.setFixedSize(1024, 768)  # Disable resizing
 
-        # Set up the main window
-        self.setWindowTitle("SILENT | Key")
-        self.setGeometry(100, 100, 800, 600)  # x, y, width, height
-        self.setWindowIcon(QIcon("C:/Users/srmus/Downloads/icons8-cryptography-100.png"))
+        self.main_widget = QWidget()
+        self.setCentralWidget(self.main_widget)
+        
+        self.setup_ui()
 
-
-        # Set the window flags to disable maximize
-        self.setWindowFlags(Qt.WindowType.Window | Qt.WindowType.MSWindowsFixedSizeDialogHint)
-
-        # Main widget to hold everything
-        main_widget = QWidget(self)
-        self.setCentralWidget(main_widget)
-
-        # Set a vertical layout
+    def setup_ui(self):
+        # Main layout
         main_layout = QVBoxLayout()
+        self.main_widget.setLayout(main_layout)
 
-        # Create a horizontal layout for search bar alignment
+        # Header
+        header = QLabel("Password Manager Dashboard")
+        header.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        header.setFont(QFont("Arial", 20, QFont.Weight.Bold))
+        header.setStyleSheet("color: teal;")
+        main_layout.addWidget(header)
+
+        # Search Bar
         search_layout = QHBoxLayout()
-        search_layout.setContentsMargins(300, 30, 300, 0)  # Adjust top margins to push it a bit down
-
-        # Initialize the animated search GIF
-        self.search_gif_label = QLabel(self)  # Create QLabel for GIF
-        self.search_gif_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        # Load the animated search GIF with QMovie
-        self.search_movie = QMovie("C:/Users/srmus/Downloads/icons8-loading-infinity.gif")  # Path to your GIF
-        self.search_gif_label.setMovie(self.search_movie)
-        self.search_movie.start()  # Start the GIF animation
-
-        # Create the search bar
-        self.search_bar = QLineEdit()
-        self.search_bar.setPlaceholderText("Type to search...")
-        self.search_bar.setStyleSheet("font-size: 16px; padding: 10px; color: aqua;")
-
-        # Add the animated search GIF and search bar into the search layout
-        search_layout.addWidget(self.search_gif_label)  # Add the animated GIF
-        search_layout.addWidget(self.search_bar)  # Add the search bar
-
-        # Add the search bar layout to the main vertical layout
+        search_input = QLineEdit()
+        search_input.setPlaceholderText("Search passwords...")
+        search_input.setStyleSheet("padding: 5px; font-size: 14px;")
+        search_button = QPushButton("Search")
+        search_button.setStyleSheet("background-color: teal; color: white; padding: 5px 10px;")
+        search_layout.addWidget(search_input)
+        search_layout.addWidget(search_button)
         main_layout.addLayout(search_layout)
 
-        # Add a simple label in the center
-        self.label = QLabel("BHAI NE BOLA KARNE KA TOH KARNE KA", self)
-        self.label.setStyleSheet("font-size: 30px; color: aqua; text-align: center;")
-        self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        main_layout.addWidget(self.label)
+        # Sidebar and Table layout
+        content_layout = QHBoxLayout()
 
-        # Set the layout to the main widget
-        main_widget.setLayout(main_layout)
+        # Sidebar
+        sidebar = QListWidget()
+        sidebar.addItems(["Favorites", "Recently Modified", "Shared with Me", "Expired"])
+        sidebar.setStyleSheet("background-color: #f5f5f5; font-size: 14px;")
+        content_layout.addWidget(sidebar)
 
-        # Fix window size
-        self.setFixedSize(1200, 700)
+        # Password Table
+        self.table = QTableWidget()
+        self.table.setRowCount(10)
+        self.table.setColumnCount(4)
+        self.table.setHorizontalHeaderLabels(["Name", "Username", "Password", "URI"])
+        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self.table.setStyleSheet("background-color: #ffffff; font-size: 14px;")
+        content_layout.addWidget(self.table)
 
+        main_layout.addLayout(content_layout)
+
+        # Footer with Theme Switching
+        footer_layout = QHBoxLayout()
+        light_theme_btn = QPushButton("Light Theme")
+        dark_theme_btn = QPushButton("Dark Theme")
+        neon_theme_btn = QPushButton("Neon Teal Theme")
+
+        light_theme_btn.clicked.connect(lambda: self.apply_theme("light"))
+        dark_theme_btn.clicked.connect(lambda: self.apply_theme("dark"))
+        neon_theme_btn.clicked.connect(lambda: self.apply_theme("neon"))
+
+        for btn in [light_theme_btn, dark_theme_btn, neon_theme_btn]:
+            btn.setStyleSheet("padding: 5px 10px; font-size: 14px;")
+            footer_layout.addWidget(btn)
+
+        main_layout.addLayout(footer_layout)
+
+    def apply_theme(self, theme):
+        if theme == "light":
+            self.setStyleSheet("background-color: #ffffff; color: #000000;")
+        elif theme == "dark":
+            self.setStyleSheet("background-color: #2c2c2c; color: #ffffff;")
+        elif theme == "neon":
+            self.setStyleSheet("background-color: #001f3f; color: #39ff14;")
 
 if __name__ == "__main__":
-    # Create the application
+    import sys
     app = QApplication(sys.argv)
-
-    # Create the main window
-    window = MainWindow()
+    window = PasswordManagerApp()
     window.show()
-
-    # Execute the application
     sys.exit(app.exec())
