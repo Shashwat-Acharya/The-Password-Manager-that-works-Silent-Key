@@ -1,3 +1,4 @@
+import sys
 from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QLineEdit, QWidget, QVBoxLayout, QHBoxLayout
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QMovie  # Import QMovie for GIF animation
