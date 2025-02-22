@@ -1,4 +1,5 @@
-# Import necessary modules from PyQt6 and Python's sys library
+# Import necessary modules from PyQt6 and Python's sys
+
 from PyQt6.QtWidgets import QApplication, QDialog, QLabel, QWidget
 from PyQt6.QtGui import QIcon
 import sys
