@@ -34,5 +34,5 @@ if __name__ == "__main__":
     # Show the window
     window.show()
 
-    # Execute the application
+    # Execute the application.
     sys.exit(app.exec())
